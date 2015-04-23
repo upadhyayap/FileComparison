@@ -37,9 +37,9 @@ public class TextFile {
 		return content;
 	}
 
-	public Set<String> intersection(TextFile targetFile)
+	public Map<String, Set<String>> intersection(TextFile targetFile)
 			throws IllegalArgumentException, IOException, FileNotFoundException {
-		Set<String> matchingContent = new TreeSet<String>();
+		Map<String, Set<String>> matchingContent = new HashMap<String, Set<String>>();
 		if (!this.getContent().isEmpty()) {
 			Iterator<String> contentIterator = this.content.iterator();
 			String lineData = "";
@@ -47,18 +47,13 @@ public class TextFile {
 				lineData = contentIterator.next();
 				String directMatch = getDirectMatch(targetFile.getContent(),
 						lineData);
-				Map<String, Set<String>> zigZagMatch = new HashMap<String, Set<String>>();
+				 Set<String>zigZagMatch = new HashSet<String>();
 				if (!directMatch.equals("")) {
-					matchingContent.add(lineData + " matches with "
-							+ directMatch);
+					zigZagMatch.add(directMatch);
+					matchingContent.put(lineData, zigZagMatch);
 				} else if (!(zigZagMatch = getZigZagMatches(
 						targetFile.getContent(), lineData, " ")).isEmpty()) {
-					Iterator<String> matchIterator = zigZagMatch.get(lineData)
-							.iterator();
-					while (matchIterator.hasNext()) {
-						matchingContent.add(lineData + " matches with "
-								+ matchIterator.next());
-					}
+					matchingContent.put(lineData, zigZagMatch);
 				}
 			}
 		}
@@ -100,9 +95,8 @@ public class TextFile {
 		return match;
 	}
 
-	public Map<String, Set<String>> getZigZagMatches(Set<String> content,
+	public Set<String> getZigZagMatches(Set<String> content,
 			String searchWord, String delimiter) {
-		Map<String, Set<String>> matchingWords = new HashMap<String, Set<String>>();
 		Set<String> matches = new HashSet<String>();
 		String targetWord;
 		Iterator<String> contentIterator = content.iterator();
@@ -113,8 +107,7 @@ public class TextFile {
 				matches.add(targetWord);
 			}
 		}
-		matchingWords.put(searchWord, matches);
-		return matchingWords;
+		return matches;
 	}
 
 	public Set<String> findCommonData(String[] sourceArray, String[] targetArray) {

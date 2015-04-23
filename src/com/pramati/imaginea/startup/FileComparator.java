@@ -6,7 +6,9 @@ package com.pramati.imaginea.startup;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
+
 import com.pramati.imaginea.bobj.TextFile;
 
 /**
@@ -27,12 +29,20 @@ public class FileComparator {
 			}
 			TextFile sourceFile = new TextFile(new File(args[0]));
 			TextFile targetFile = new TextFile(new File(args[1]));
-			Set<String> matches = sourceFile.intersection(targetFile);
-			Iterator<String> matchiterator = matches.iterator();
+			Map<String, Set<String>> matches = sourceFile
+					.intersection(targetFile);
+			Iterator<Map.Entry<String, Set<String>>> matchiterator = matches
+					.entrySet().iterator();
 			while (matchiterator.hasNext()) {
-				System.out.println(matchiterator.next());
+				String matchingKey = matchiterator.next().getKey();
+				Iterator<String> matchingwords = matches.get(matchingKey)
+						.iterator();
+				while (matchingwords.hasNext()) {
+					System.out.println(matchingKey + "---- matched with----"
+							+ matchingwords.next());
+				}
 			}
-			System.out.println("Total "+matches.size() +"matches found");
+			System.out.println("Total " + matches.size() + "matches found");
 
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
