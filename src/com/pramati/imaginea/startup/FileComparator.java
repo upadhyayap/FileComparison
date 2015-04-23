@@ -22,24 +22,24 @@ public class FileComparator {
 	 */
 	public static void main(String[] args) {
 		try {
-			if (args.length < 2) {
+			if (args.length!=2 ) {
 				System.out
-						.println("Please enter atleast two file names to compare");
+						.println("Please enter complete path of exact two file names separate by space");
 				return;
 			}
 			TextFile sourceFile = new TextFile(new File(args[0]));
 			TextFile targetFile = new TextFile(new File(args[1]));
 			Map<String, Set<String>> matches = sourceFile
 					.intersection(targetFile);
-			Iterator<Map.Entry<String, Set<String>>> matchiterator = matches
+			Iterator<Map.Entry<String, Set<String>>> matchIterator = matches
 					.entrySet().iterator();
-			while (matchiterator.hasNext()) {
-				String matchingKey = matchiterator.next().getKey();
-				Iterator<String> matchingwords = matches.get(matchingKey)
+			while (matchIterator.hasNext()) {
+				String matchingKey = matchIterator.next().getKey();
+				Iterator<String> matchingWords = matches.get(matchingKey)
 						.iterator();
-				while (matchingwords.hasNext()) {
+				while (matchingWords.hasNext()) {
 					System.out.println(matchingKey + "---- matched with----"
-							+ matchingwords.next());
+							+ matchingWords.next());
 				}
 			}
 			System.out.println("Total " + matches.size() + "matches found");

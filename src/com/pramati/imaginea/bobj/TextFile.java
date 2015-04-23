@@ -47,7 +47,7 @@ public class TextFile {
 				lineData = contentIterator.next();
 				String directMatch = getDirectMatch(targetFile.getContent(),
 						lineData);
-				 Set<String>zigZagMatch = new HashSet<String>();
+				Set<String> zigZagMatch = new HashSet<String>();
 				if (!directMatch.equals("")) {
 					zigZagMatch.add(directMatch);
 					matchingContent.put(lineData, zigZagMatch);
@@ -81,12 +81,12 @@ public class TextFile {
 		}
 	}
 
-	public String getDirectMatch(Set<String> Content, String searchWord) {
+	public String getDirectMatch(Set<String> content, String searchWord) {
 		String match = "";
-		if (!Content.isEmpty()) {
-			Iterator<String> setIterator = Content.iterator();
-			while (setIterator.hasNext()) {
-				String nextWord = setIterator.next();
+		if (!content.isEmpty()) {
+			Iterator<String> contentIterator = content.iterator();
+			while (contentIterator.hasNext()) {
+				String nextWord = contentIterator.next();
 				if (searchWord.equalsIgnoreCase(nextWord)) {
 					match = nextWord;
 				}
@@ -95,8 +95,8 @@ public class TextFile {
 		return match;
 	}
 
-	public Set<String> getZigZagMatches(Set<String> content,
-			String searchWord, String delimiter) {
+	public Set<String> getZigZagMatches(Set<String> content, String searchWord,
+			String delimiter) {
 		Set<String> matches = new HashSet<String>();
 		String targetWord;
 		Iterator<String> contentIterator = content.iterator();
@@ -111,8 +111,8 @@ public class TextFile {
 	}
 
 	public Set<String> findCommonData(String[] sourceArray, String[] targetArray) {
-		Set<String> common = new HashSet<String>(Arrays.asList(sourceArray));
-		common.retainAll(new HashSet<>(Arrays.asList(targetArray)));
-		return common;
+		Set<String> commonData = new HashSet<String>(Arrays.asList(sourceArray));
+		commonData.retainAll(new HashSet<>(Arrays.asList(targetArray)));
+		return commonData;
 	}
 }
