@@ -24,7 +24,7 @@ public class FileComparator {
 		try {
 			if (args.length!=2 ) {
 				System.out
-						.println("Please enter complete path of exact two file names separate by space");
+						.println("Please enter complete path of exact two file names separate by space Changed by aditya in new learning repo");
 				return;
 			}
 			TextFile sourceFile = new TextFile(new File(args[0]));
